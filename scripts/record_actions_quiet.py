@@ -34,6 +34,8 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 cfg = load_env_cfg("Mjlab-Velocity-Flat-Go2Piper-Quiet", play=True)
 cfg.scene.num_envs = 1
+cfg.seed = 42  # identical DR draws across policy A/B runs
+cfg.events.pop("arm_motion", None)  # scenarios own the arm; no random motion
 cfg.viewer.height, cfg.viewer.width = 480, 640
 cfg.viewer.distance = 2.2
 env = ManagerBasedRlEnv(cfg, device=DEVICE, render_mode="rgb_array")
@@ -60,10 +62,29 @@ def body_goal(dx: float, dy: float) -> torch.Tensor:
   return torch.stack([pos[0] + c * dx - s * dy, pos[1] + s * dx + c * dy]).unsqueeze(0)
 
 
+ARM_JOINTS = torch.tensor(
+  [i for i, n in enumerate(robot.joint_names) if "piper" in n], device=DEVICE
+)
+
+
 def record(name: str, seconds: float, script):
-  """script(i, t) is called every step to set goals / arm / pushes."""
+  """script(i, t) is called every step to set goals / arm / pushes.
+
+  After reset the robot is forced to an identical canonical state (origin,
+  identity yaw, default legs, folded arm) so A/B runs of different policies
+  share the exact same starting orientation and camera perspective.
+  """
   obs, _ = env.reset()
+  root = torch.tensor(
+    [[0.0, 0.0, 0.30, 1.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0]], device=DEVICE
+  )
+  robot.write_root_state_to_sim(root)
+  assert robot.data.default_joint_pos is not None
+  robot.write_joint_position_to_sim(robot.data.default_joint_pos.clone())
+  robot.write_joint_velocity_to_sim(torch.zeros_like(robot.data.joint_vel))
+  robot.write_joint_position_to_sim(FOLDED, ARM_JOINTS)
   robot.write_ctrl_to_sim(FOLDED, ARM_CTRL)
+  obs = env.observation_manager.compute()
   vw = cv2.VideoWriter(str(OUT / f"{name}.mp4"), cv2.VideoWriter_fourcc(*"mp4v"), 25, (640, 480))
   steps = int(seconds * 50)
   for i in range(steps):
