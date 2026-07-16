@@ -32,8 +32,9 @@ W&B runs: [`dz8wkx58`](https://wandb.ai/zeroanuj/go2-quiet/runs/dz8wkx58) (iters
 ## Repo layout
 
 ```
-policies/policy.onnx                  # final actor (obs[1,51] -> actions[1,12])
-policies/policy_descriptor.goto.json  # the deployment contract this policy satisfies
+policies/policy.onnx                  # QUIET actor (obs[1,51] -> actions[1,12]) - this work
+policies/baseline/policy.onnx         # ORIGINAL goto policy it replaces (same contract) - for A/B
+policies/policy_descriptor.goto.json  # the deployment contract both policies satisfy
 checkpoints/model_6199.pt             # rsl_rl checkpoint (actor+critic+optimizer)
 checkpoints/env.yaml, agent.yaml      # full training config dumps
 mjlab_tasks/go2_piper_quiet/          # mjlab task package (env cfg, command, rewards, events)
