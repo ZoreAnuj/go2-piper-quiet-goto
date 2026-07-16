@@ -25,7 +25,7 @@ ONNX = sys.argv[1] if len(sys.argv) > 1 else (
   r"D:\go2_bungalow_bc\logs\rsl_rl\go2_piper_quiet\2026-07-15_19-21-53"
   r"\2026-07-15_19-21-53.onnx"
 )
-OUT = Path(r"D:\go2_bungalow_bc\cache\quiet_videos\actions")
+OUT = Path(sys.argv[2] if len(sys.argv) > 2 else r"D:\go2_bungalow_bc\cache\quiet_videos\actions")
 OUT.mkdir(parents=True, exist_ok=True)
 
 sess = ort.InferenceSession(ONNX, providers=["CPUExecutionProvider"])

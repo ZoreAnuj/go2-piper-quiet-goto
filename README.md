@@ -13,19 +13,25 @@ Final training stats (6200 iters, 4096 envs): **0 falls, 0 NaNs**, vel-tracking 
 
 **In-sim videos** (offscreen render of the training environment): [`videos/quiet_rollout.mp4`](videos/quiet_rollout.mp4) — 20 s goal-chasing rollout, randomized arm poses · [`videos/disturbance_test.mp4`](videos/disturbance_test.mp4) — same policy under training-strength pushes and ±15 N/5 N·m wrench bursts. Re-record for any checkpoint with `python scripts/record_video_quiet.py <policy.onnx>`.
 
-**Single-robot action samples** (inline previews; full-quality mp4s in [`videos/actions/`](videos/actions/), scripted goals via `scripts/record_actions_quiet.py`):
+**Action samples — before/after** (baseline goto policy vs the quiet retrain, same scripted goals per clip; full-quality mp4s in [`videos/actions/`](videos/actions/) and [`videos/actions/baseline/`](videos/actions/baseline/), recorded via `scripts/record_actions_quiet.py`):
 
-| walk forward — two 2.5 m goals | turn around — goal behind, 180° |
-|---|---|
-| ![walk forward](videos/actions/walk_forward.gif) | ![turn around](videos/actions/turn_around.gif) |
+*walk forward — two consecutive 2.5 m goals*
+<p align="center"><img src="videos/actions/compare_walk_forward.gif" alt="walk forward old vs new" width="760"></p>
 
-| sidestep — goals left, then right | stand quiet — arm waves, base holds |
-|---|---|
-| ![sidestep](videos/actions/sidestep.gif) | ![stand quiet](videos/actions/stand_quiet_arm_wave.gif) |
+*turn around — goal placed directly behind → 180° turn*
+<p align="center"><img src="videos/actions/compare_turn_around.gif" alt="turn around old vs new" width="760"></p>
 
-| push recovery — 0.7 m/s lateral shoves | arm-swing walk — targets change every 1.2 s |
-|---|---|
-| ![push recovery](videos/actions/push_recovery.gif) | ![arm swing walk](videos/actions/arm_swing_walk.gif) |
+*sidestep — lateral goals left, then right*
+<p align="center"><img src="videos/actions/compare_sidestep.gif" alt="sidestep old vs new" width="760"></p>
+
+*stand quiet — zero command, arm waves while the base must hold*
+<p align="center"><img src="videos/actions/compare_stand_quiet_arm_wave.gif" alt="stand quiet old vs new" width="760"></p>
+
+*push recovery — 0.7 m/s lateral shoves mid-walk*
+<p align="center"><img src="videos/actions/compare_push_recovery.gif" alt="push recovery old vs new" width="760"></p>
+
+*arm-swing walk — aggressive arm target changes every 1.2 s*
+<p align="center"><img src="videos/actions/compare_arm_swing_walk.gif" alt="arm swing walk old vs new" width="760"></p>
 
 W&B runs: [`dz8wkx58`](https://wandb.ai/zeroanuj/go2-quiet/runs/dz8wkx58) (iters 0–1200) · [`pm1t1u9i`](https://wandb.ai/zeroanuj/go2-quiet/runs/pm1t1u9i) (1200–6200)
 
