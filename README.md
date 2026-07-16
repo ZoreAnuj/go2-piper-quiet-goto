@@ -9,6 +9,10 @@ Quiet, smooth **goto locomotion policy for the Unitree Go2 (Pro) with a back-mou
 
 Final training stats (6200 iters, 4096 envs): **0 falls, 0 NaNs**, vel-tracking error 0.23 m/s, mean landing force **11.9 N**, mean foot slip **0.025 m/s**.
 
+![quiet rollout](videos/quiet_rollout.gif)
+
+**In-sim videos** (offscreen render of the training environment): [`videos/quiet_rollout.mp4`](videos/quiet_rollout.mp4) — 20 s goal-chasing rollout, randomized arm poses · [`videos/disturbance_test.mp4`](videos/disturbance_test.mp4) — same policy under training-strength pushes and ±15 N/5 N·m wrench bursts. Re-record for any checkpoint with `python scripts/record_video_quiet.py <policy.onnx>`.
+
 ![final policy](media/final_policy_preview.png)
 
 W&B runs: [`dz8wkx58`](https://wandb.ai/zeroanuj/go2-quiet/runs/dz8wkx58) (iters 0–1200) · [`pm1t1u9i`](https://wandb.ai/zeroanuj/go2-quiet/runs/pm1t1u9i) (1200–6200)
