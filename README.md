@@ -13,6 +13,17 @@ Final training stats (6200 iters, 4096 envs): **0 falls, 0 NaNs**, vel-tracking 
 
 **In-sim videos** (offscreen render of the training environment): [`videos/quiet_rollout.mp4`](videos/quiet_rollout.mp4) — 20 s goal-chasing rollout, randomized arm poses · [`videos/disturbance_test.mp4`](videos/disturbance_test.mp4) — same policy under training-strength pushes and ±15 N/5 N·m wrench bursts. Re-record for any checkpoint with `python scripts/record_video_quiet.py <policy.onnx>`.
 
+**Single-robot action samples** (`videos/actions/`, scripted goals via `scripts/record_actions_quiet.py`):
+
+| clip | behavior |
+|---|---|
+| [`walk_forward.mp4`](videos/actions/walk_forward.mp4) | straight-line goto, two consecutive 2.5 m goals |
+| [`turn_around.mp4`](videos/actions/turn_around.mp4) | goal placed directly behind → 180° turn-then-walk |
+| [`sidestep.mp4`](videos/actions/sidestep.mp4) | lateral goals left then right |
+| [`stand_quiet_arm_wave.mp4`](videos/actions/stand_quiet_arm_wave.mp4) | zero command: base holds still while the arm waves |
+| [`push_recovery.mp4`](videos/actions/push_recovery.mp4) | two 0.7 m/s lateral shoves mid-walk |
+| [`arm_swing_walk.mp4`](videos/actions/arm_swing_walk.mp4) | walking with aggressive arm target changes every 1.2 s |
+
 ![final policy](media/final_policy_preview.png)
 
 W&B runs: [`dz8wkx58`](https://wandb.ai/zeroanuj/go2-quiet/runs/dz8wkx58) (iters 0–1200) · [`pm1t1u9i`](https://wandb.ai/zeroanuj/go2-quiet/runs/pm1t1u9i) (1200–6200)
