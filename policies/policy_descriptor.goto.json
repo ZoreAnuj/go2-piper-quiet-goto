@@ -1,0 +1,48 @@
+{
+  "models": { "primary": { "path": "policy.onnx" } },
+
+  "joints": {
+    "actuated": [
+      "FL_hip_joint", "FL_thigh_joint", "FL_calf_joint",
+      "FR_hip_joint", "FR_thigh_joint", "FR_calf_joint",
+      "RL_hip_joint", "RL_thigh_joint", "RL_calf_joint",
+      "RR_hip_joint", "RR_thigh_joint", "RR_calf_joint"
+    ],
+    "default_pos": {
+      "FL_hip_joint":  0.1, "FR_hip_joint": -0.1,
+      "RL_hip_joint":  0.1, "RR_hip_joint": -0.1,
+      "FL_thigh_joint": 0.9, "FR_thigh_joint": 0.9,
+      "RL_thigh_joint": 0.9, "RR_thigh_joint": 0.9,
+      "FL_calf_joint": -1.8, "FR_calf_joint": -1.8,
+      "RL_calf_joint": -1.8, "RR_calf_joint": -1.8
+    },
+    "action_scales": {
+      "FL_hip_joint":   0.25, "FR_hip_joint":   0.25,
+      "RL_hip_joint":   0.25, "RR_hip_joint":   0.25,
+      "FL_thigh_joint": 0.25, "FR_thigh_joint": 0.25,
+      "RL_thigh_joint": 0.25, "RR_thigh_joint": 0.25,
+      "FL_calf_joint":  0.25, "FR_calf_joint":  0.25,
+      "RL_calf_joint":  0.25, "RR_calf_joint":  0.25
+    }
+  },
+
+  "pd": {
+    "kp": { "default": 20.0, "FL_calf_joint": 40.0, "FR_calf_joint": 40.0, "RL_calf_joint": 40.0, "RR_calf_joint": 40.0 },
+    "kd": { "default":  1.0, "FL_calf_joint":  2.0, "FR_calf_joint":  2.0, "RL_calf_joint":  2.0, "RR_calf_joint":  2.0 },
+    "effort":   { "default": 23.5, "FL_calf_joint": 45.0, "FR_calf_joint": 45.0, "RL_calf_joint": 45.0, "RR_calf_joint": 45.0 },
+    "armature": { "default": 0.01, "FL_calf_joint": 0.02, "FR_calf_joint": 0.02, "RL_calf_joint": 0.02, "RR_calf_joint": 0.02 }
+  },
+
+  "observation": {
+    "primary": [
+      "base_ang_vel_base",
+      "projected_gravity",
+      { "type": "command", "names": ["SetVx", "SetVy", "SetYawRate", "GaitPhaseSin", "GaitPhaseCos"] },
+      "joint_pos_rel",
+      "joint_vel",
+      "last_action",
+      { "type": "command", "names": ["BodyHeight"] },
+      { "type": "command", "names": ["TargetBX", "TargetBY", "TargetBZ"] }
+    ]
+  }
+}
