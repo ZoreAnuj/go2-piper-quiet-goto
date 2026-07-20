@@ -35,6 +35,16 @@ Final training stats (6200 iters, 4096 envs): **0 falls, 0 NaNs**, vel-tracking 
 
 W&B runs: [`dz8wkx58`](https://wandb.ai/zeroanuj/go2-quiet/runs/dz8wkx58) (iters 0–1200) · [`pm1t1u9i`](https://wandb.ai/zeroanuj/go2-quiet/runs/pm1t1u9i) (1200–6200)
 
+## Sim2real
+
+
+
+https://github.com/user-attachments/assets/82b8c323-6b40-440a-8d7e-92979e743e3b
+
+
+
+
+
 ## Repo layout
 
 ```
